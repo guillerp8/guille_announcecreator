@@ -1,9 +1,11 @@
 
+@font-face {
+    font-family: lemon;
+    src: url("srcs/lemon.otf");
+}
 
 #all {
-    position: absolute;
-    right: 80%;
-    bottom: 90%;
+    
 }
 
 body {
@@ -12,437 +14,65 @@ body {
     height: 100%;
 }
 
+.container {
+    position: absolute;
+    width: 600px;
+    height: 170px; 
+    background: #080e46;
+    bottom: -90px;
+    left: 50%;
+    border-radius: 9px;
+    transform: translate(-50%, -50%);
+    animation: fromBottom 20s forwards;
+}
+
+.drawline {
+    position: absolute;
+    top: 20px;
+    width: 600px;
+    height: 30px; 
+    background: #ffffff;
+}
+
+.picture {
+    position: absolute;
+    height: 200px;
+    width: auto;
+    left: -100px;
+    bottom: -2px;
+}
+
 .title {
     position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    color: aliceblue;
     width: 100%;
-    left: 20px;
-    text-align: left;
-}
-
-.principal-container {
-    position: absolute;
-    width: 800px;
-    min-height: 150px; 
-    height: 800px; 
-    background: #797c7c93;
-    border-radius: 9px;
-    z-index: -2;
-}
-
-.top-border {
-    position: absolute;
-    width: 800px; 
-    height: 80px; 
-    background: #000000ec;
-    z-index: -2;
-}
-
-.jobname {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 100px;
-	width: 15%;
-    height: 15px;
-    margin-left: 30px;
-    border-radius: 2px;
     text-align: center;
+    color: black;
+    font-size: 21px;
+    font-family: lemon;
 }
 
-.joblabel {
-   position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 160px;
-	width: 15%;
-    height: 15px;
-    margin-left: 30px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-
-
-.info-text {
+.text-content {
     position: absolute;
-    top: 10px;
+    top: 60px;
+    left: 100px;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    right: 5%;
-    font-size: 10px;
+    font-size: 11px;
+    width: 490px;
+    font-family: lemon;
+    text-align: justify;
 }
 
-.bliptext {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 285px;
-	width: 195px;
-    height: 15px;
-    margin-left: 30px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.blipsprite {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 355px;
-	width: 195px;
-    height: 15px;
-    margin-left: 30px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.blipcolor {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 425px;
-	width: 195px;
-    height: 15px;
-    margin-left: 30px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.blipbox {
-    position: absolute;
-    font-weight: bold;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    top: -40%;
-    left: 100%;
-    background-color: #eee;
-}
-
-.container:hover input ~ .blipbox {
-    background-color: #ccc;
-}
-
-.container input:checked ~ .blipbox {
-    background-color: #2196F3;
-}
-
-.blipbox:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-  
-.container input:checked ~ .blipbox:after {
-    display: block;
-}
-
-.container .blipbox:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.check-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 30%;
-    color: white;
-    left: 6%;
-}
-
-.search-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 62%;
-    color: white;
-    left: 4.2%;
-}
-
-.handcuff-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 66%;
-    color: white;
-    left: 4.2%;
-}
-
-.vehinfo-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 70%;
-    color: white;
-    left: 4.2%;
-}
-
-.identity-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 74%;
-    color: white;
-    left: 4.2%;
-}
-
-.obj-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 78%;
-    color: white;
-    left: 4.2%;
-}
-
-.alerts-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 82%;
-    color: white;
-    left: 4.2%;
-}
-
-.bill-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 86%;
-    color: white;
-    left: 4.2%;
-}
-
-.shop-label-class {
-    position: absolute;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 90%;
-    color: white;
-    left: 4.2%;
-}
-
-.grade1 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 100px;
-	width: 15%;
-    font-size: 10px;
-    height: 15px;
-    margin-left: 300px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade1mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 100px;
-    font-size: 10px;
-	width: 15%;
-    margin-left: 500px;
-    height: 15px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade2 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-    height: 15px;
-	padding: 12px 15px;
-	top: 150px;
-    font-size: 10px;
-	width: 15%;
-    margin-left: 300px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade2mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-    font-size: 10px;
-	top: 150px;
-	width: 15%;
-    height: 15px;
-    margin-left: 500px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-
-
-.grade3 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 200px;
-    height: 15px;
-    font-size: 10px;
-	width: 120px;
-    margin-left: 300px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade3mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 200px;
-    font-size: 10px;
-    height: 15px;
-	width: 120px;
-    margin-left: 500px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade4 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-    font-size: 10px;
-	padding: 12px 15px;
-    height: 15px;
-	top: 250px;
-	width: 120px;
-    margin-left: 300px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade4mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 250px;
-    font-size: 10px;
-    height: 15px;
-	width: 120px;
-    margin-left: 500px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade5 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-    height: 15px;
-	top: 300px;
-	width: 120px;
-    margin-left: 300px;
-    border-radius: 2px;
-    font-size: 10px;
-    text-align: center;
-}
-
-.grade5mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	top: 300px;
-    height: 15px;
-	width: 120px;
-    margin-left: 500px;
-    border-radius: 2px;
-    font-size: 10px;
-    text-align: center;
-}
-
-.grade6 {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-    height: 15px;
-	top: 350px;
-    font-size: 10px;
-	width: 120px;
-    margin-left: 300px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.grade6mon {
-    position: absolute;
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-    font-size: 10px;
-	top: 350px;
-    height: 15px;
-	width: 120px;
-    margin-left: 500px;
-    border-radius: 2px;
-    text-align: center;
-}
-
-.button-moregrades {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    border: 2px solid #555555;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    width: 16%;
-    font-size: 7.5px;
-    outline: none;
-    margin: 130px 660px;
-    border-radius: 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.button-moregrades:hover {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-}
-.button-validate {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    border: 2px solid #555555;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    width: 30%;
-    font-size: 12px;
-    outline: none;
-    margin: 430px 540px;
-    border-radius: 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.button-validate:hover {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
+@keyframes fromBottom {
+    0% { 
+        bottom: -500px; 
+    }
+    20% {
+        bottom: -90px;
+    }
+    80% {
+        bottom: -90px;
+    }
+    100% { 
+        bottom: -500px;
+    }
 }

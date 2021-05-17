@@ -26,4 +26,6 @@ files {
     "ui/index.html",
     "ui/script.js",
     "ui/style.css",
+    "ui/srcs/*.png",
+    "ui/srcs/*.otf"
 }
