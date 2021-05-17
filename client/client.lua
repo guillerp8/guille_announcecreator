@@ -47,6 +47,11 @@ function createAnnounce()
         table.insert(elements, {label = "Nombre", value = "name"})
     else
         table.insert(elements, {label = "Nombre: " ..name, value = "name"})
+        
+    end
+
+    if job ~= nil and foto ~= nil and color ~= nil and name ~= nil then
+        table.insert(elements, {label = "Crear", value = "create"})
     end
 
     ESX.UI.Menu.Open('default',GetCurrentResourceName(), "creator_menu",
@@ -58,13 +63,59 @@ function createAnnounce()
         local v = data.current.value
 
         if v == "job" then
-
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Nombre del job", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                job = data2.value
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
         elseif v == "pic" then
-
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Pic del job", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                foto = data2.value
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
         elseif v == "color" then
-
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Color del job", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                color = data2.value
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
         elseif v == "name" then
-
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Nombre del trabajo", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                name = data2.value
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
+        elseif v == "create" then
+            TriggerServerEvent("guille_anu:server:create", job, foto, color, name)
         end
     end, function(data, menu) 
         menu.close() 
