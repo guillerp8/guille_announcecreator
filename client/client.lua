@@ -128,16 +128,18 @@ function createAnnounce()
 end
 
 RegisterCommand("anuncio", function(source, args)
+    local content = table.concat(args, ' ')
     ESX.TriggerServerCallback('guille_anu:getAnounce', function(result)
-        TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name)
+        TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name, content)
     end)
 end, false)
 
 RegisterNetEvent("guille_an:server:syncAnounce")
-AddEventHandler("guille_an:server:syncAnounce", function(pic, color, name)
+AddEventHandler("guille_an:server:syncAnounce", function(pic, color, name, content)
     SendNUIMessage({
         pic = pic;
         color = color;
         name = name;
+        content = content;
     })
 end)

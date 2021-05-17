@@ -5,12 +5,12 @@ $(function(){
         const element = document.getElementById("all")
         
         const htmlString = `
-        <div class="container">
+        <div class="container" style="background: rgb(${event.data.color});">
             <div class="drawline">
-                <span class="title" id="title">Police departament</span>
+                <span class="title" id="title">${event.data.name}</span>
             </div>
-            <span class="text-content" id="content">hola buenas sda dasasdsa as dsa saijasid jasi0jd aisjd oasjd ioasjid asjid asjiod jasiod jsaijd asoijd ioasjd ioasjd ioasjid oasjiod jasid ia d jasi0jd aisjd oasjd ioasjid asjid asjiod jasiod jsaijd asoijd ioasjd ioasjd ioasjid oasjiod jasid ia d jasi0jd aisjd oasjd ioasjid asjid asjiod jasiod jsaijd asoijd ioasjd ioasjd ioasjid oasjiod jasid ia</span>
-            <img class="picture" src="srcs/losantos.png"></img>
+            <span class="text-content" id="content">${event.data.content}</span>
+            <img class="picture" src="${event.data.pic}"></img>
         </div>`
         const insertAfter = (element, htmlString) => element.insertAdjacentHTML("afterend", htmlString)
         insertAfter(element, htmlString)

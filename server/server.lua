@@ -50,6 +50,6 @@ ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb)
 end)
 
 RegisterServerEvent("guille_anu:server:sendAnu")
-AddEventHandler("guille_anu:server:sendAnu", function(pic, color, name)
-    TriggerClientEvent("guille_an:server:syncAnounce", -1, pic, color, name)
+AddEventHandler("guille_anu:server:sendAnu", function(pic, color, name, content)
+    TriggerClientEvent("guille_an:server:syncAnounce", -1, pic, color, name, content)
 end)
