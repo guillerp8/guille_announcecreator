@@ -71,6 +71,7 @@ function createAnnounce()
             },
             function(data2, menu2)
                 job = data2.value
+                createAnnounce()
                 menu2.close()
             end, function(data2, menu2)
                 menu2.close()
@@ -84,6 +85,7 @@ function createAnnounce()
             },
             function(data2, menu2)
                 foto = data2.value
+                createAnnounce()
                 menu2.close()
             end, function(data2, menu2)
                 menu2.close()
@@ -97,6 +99,7 @@ function createAnnounce()
             },
             function(data2, menu2)
                 color = data2.value
+                createAnnounce()
                 menu2.close()
             end, function(data2, menu2)
                 menu2.close()
@@ -110,14 +113,31 @@ function createAnnounce()
             },
             function(data2, menu2)
                 name = data2.value
+                createAnnounce()
                 menu2.close()
             end, function(data2, menu2)
                 menu2.close()
             end)
         elseif v == "create" then
             TriggerServerEvent("guille_anu:server:create", job, foto, color, name)
+            menu.close() 
         end
     end, function(data, menu) 
         menu.close() 
     end)
 end
+
+RegisterCommand("anuncio", function(source, args)
+    ESX.TriggerServerCallback('guille_anu:getAnounce', function(result)
+        TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name)
+    end)
+end, false)
+
+RegisterNetEvent("guille_an:server:syncAnounce")
+AddEventHandler("guille_an:server:syncAnounce", function(pic, color, name)
+    SendNUIMessage({
+        pic = pic;
+        color = color;
+        name = name;
+    })
+end)
