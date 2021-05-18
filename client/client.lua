@@ -85,6 +85,9 @@ function createAnnounce()
             },
             function(data2, menu2)
                 foto = data2.value
+                SendNUIMessage({
+                    demopic = foto;
+                })
                 createAnnounce()
                 menu2.close()
             end, function(data2, menu2)
@@ -129,8 +132,10 @@ end
 
 RegisterCommand("anuncio", function(source, args)
     local content = table.concat(args, ' ')
-    ESX.TriggerServerCallback('guille_anu:getAnounce', function(result)
-        TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name, content)
+    ESX.TriggerServerCallback('guille_anu:getAnounce', function(result) 
+        if result ~= nil then
+            TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name, content)
+        end
     end)
 end, false)
 

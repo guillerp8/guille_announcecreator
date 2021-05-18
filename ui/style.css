@@ -37,7 +37,7 @@ body {
     position: absolute;
     height: 200px;
     width: auto;
-    left: -100px;
+    left: -110px;
     bottom: -2px;
 }
 
@@ -73,5 +73,30 @@ body {
     }
     100% { 
         bottom: -500px;
+    }
+}
+
+.picturedemo {
+    margin-top: 100px;
+    display:block;
+    width: 300px;
+    height: auto;
+    margin:auto;
+    animation: appear 4s forwards
+    
+}
+
+@keyframes appear {
+    0%{
+        opacity: 0;
+    }
+    20%{
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
     }
 }

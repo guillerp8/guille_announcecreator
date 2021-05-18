@@ -33,23 +33,35 @@ AddEventHandler("guille_anu:server:create", function(job, pic, color, name)
             ['@name'] = name,
         })
     end
+    xPlayer.showNotification('Creando el ~r~anuncio~w~, espera a que este creado')
     Wait(5000)
     refresh()
+    xPlayer.showNotification('Anuncio para el job ~b~' ..job.. '~w~ creado correctamente')
 end)
 
-refresh()
+
 
 ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb) 
     local xPlayer = ESX.GetPlayerFromId(source)
+    local announce = false
     for i = 1, #announces, 1 do
         if announces[i]['job'] == xPlayer.job.name then
+            announce = true
             cb(announces[i])
             break
         end
+    end
+    if not announce then
+        xPlayer.showNotification('No hay jobs creados para tu job ' ..xPlayer.job.name)
     end
 end)
 
 RegisterServerEvent("guille_anu:server:sendAnu")
 AddEventHandler("guille_anu:server:sendAnu", function(pic, color, name, content)
     TriggerClientEvent("guille_an:server:syncAnounce", -1, pic, color, name, content)
+end)
+
+MySQL.ready(function()
+    print("^4[guille_announcecreator]^0 Refreshing announces")
+    refresh()
 end)
