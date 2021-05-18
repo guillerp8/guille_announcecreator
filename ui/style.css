@@ -30,7 +30,6 @@ body {
     top: 20px;
     width: 600px;
     height: 30px; 
-    background: #ffffff;
 }
 
 .picture {
@@ -41,11 +40,20 @@ body {
     bottom: -2px;
 }
 
+.democontainer {
+    position: absolute;
+    width: 600px;
+    height: 170px; 
+    bottom: -90px;
+    left: 50%;
+    border-radius: 9px;
+    transform: translate(-50%, -50%);
+}
+
 .title {
     position: absolute;
     width: 100%;
     text-align: center;
-    color: black;
     font-size: 21px;
     font-family: lemon;
 }

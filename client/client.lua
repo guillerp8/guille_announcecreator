@@ -21,6 +21,7 @@ local job = nil
 local foto = nil
 local color = nil
 local name = nil
+local colorbar = nil
 
 function createAnnounce()
     local elements = {}
@@ -47,10 +48,28 @@ function createAnnounce()
         table.insert(elements, {label = "Nombre", value = "name"})
     else
         table.insert(elements, {label = "Nombre: " ..name, value = "name"})
-        
     end
 
-    if job ~= nil and foto ~= nil and color ~= nil and name ~= nil then
+    if colorbar == nil then
+        table.insert(elements, {label = "Color de la barra: ", value = "colorbar"})
+    else
+        table.insert(elements, {label = "Color de la barra: " ..colorbar, value = "colorbar"}) 
+    end
+
+    if titlecolor == nil then
+        table.insert(elements, {label = "Color del texto del título: ", value = "titlecolor"})
+    else
+        table.insert(elements, {label = "Color del texto del título: " ..titlecolor, value = "titlecolor"}) 
+    end
+
+    if job ~= nil and foto ~= nil and color ~= nil and name ~= nil and colorbar ~= nil and titlecolor ~= nil then
+        SendNUIMessage({
+            democolor = color;
+            demopic = foto;
+            democolorbar = colorbar;
+            demotitlecolor = titlecolor;
+            demoname = name;
+        })
         table.insert(elements, {label = "Crear", value = "create"})
     end
 
@@ -107,6 +126,34 @@ function createAnnounce()
             end, function(data2, menu2)
                 menu2.close()
             end)
+        elseif v == "titlecolor" then
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Color del texto del título", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                titlecolor = data2.value
+                createAnnounce()
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
+        elseif v == "colorbar" then
+            ESX.UI.Menu.CloseAll()
+            ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
+            { 
+            title = "Color de la franja del anuncio", 
+            align = "center", 
+            },
+            function(data2, menu2)
+                colorbar = data2.value
+                createAnnounce()
+                menu2.close()
+            end, function(data2, menu2)
+                menu2.close()
+            end)
         elseif v == "name" then
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
@@ -122,10 +169,16 @@ function createAnnounce()
                 menu2.close()
             end)
         elseif v == "create" then
-            TriggerServerEvent("guille_anu:server:create", job, foto, color, name)
-            menu.close() 
+            TriggerServerEvent("guille_anu:server:create", job, foto, color, name, colorbar, titlecolor)
+            SendNUIMessage({
+                restartdemo = true;
+            })
+            menu.close()
         end
-    end, function(data, menu) 
+    end, function(data, menu)
+        SendNUIMessage({
+            restartdemo = true;
+        })
         menu.close() 
     end)
 end
@@ -134,17 +187,19 @@ RegisterCommand("anuncio", function(source, args)
     local content = table.concat(args, ' ')
     ESX.TriggerServerCallback('guille_anu:getAnounce', function(result) 
         if result ~= nil then
-            TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name, content)
+            TriggerServerEvent("guille_anu:server:sendAnu", result.pic, result.color, result.name, content, result.colorbar, result.titlecolor)
         end
     end)
 end, false)
 
 RegisterNetEvent("guille_an:server:syncAnounce")
-AddEventHandler("guille_an:server:syncAnounce", function(pic, color, name, content)
+AddEventHandler("guille_an:server:syncAnounce", function(pic, color, name, content, colorbar, titlecolor)
     SendNUIMessage({
         pic = pic;
         color = color;
         name = name;
         content = content;
+        colorbar = colorbar;
+        titlecolor = titlecolor;
     })
 end)

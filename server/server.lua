@@ -17,20 +17,22 @@ function refresh()
     MySQL.Async.fetchAll("SELECT * FROM announces", {}, function(result)
         announces = {}
         for i = 1,#result, 1 do
-            table.insert(announces, {job = result[i]['job'], pic = result[i]['pic'], color = result[i]['color'], name = result[i]['name']})
+            table.insert(announces, {job = result[i]['job'], pic = result[i]['pic'], color = result[i]['color'], name = result[i]['name'], colorbar = result[i]['colorbar'], titlecolor = result[i]['titlecolor']})
         end
     end)
 end
 
 RegisterServerEvent("guille_anu:server:create")
-AddEventHandler("guille_anu:server:create", function(job, pic, color, name)
+AddEventHandler("guille_anu:server:create", function(job, pic, color, name, colorbar, titlecolor)
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
-        MySQL.Async.execute('INSERT INTO announces (job, pic, color, name) VALUES (@job, @pic, @color, @name)', {
+        MySQL.Async.execute('INSERT INTO announces (job, pic, color, name, colorbar, titlecolor) VALUES (@job, @pic, @color, @name, @colorbar, @titlecolor)', {
             ['@job'] = job,
             ['@pic'] = pic, 
             ['@color'] = color,
             ['@name'] = name,
+            ['@colorbar'] = colorbar,
+            ['@titlecolor'] = titlecolor,
         })
     end
     xPlayer.showNotification('Creando el ~r~anuncio~w~, espera a que este creado')
@@ -41,6 +43,7 @@ end)
 
 RegisterCommand("deleteannounce", function(source, args)
     local xPlayer = ESX.GetPlayerFromId(source)
+    local announce = false
     if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
         local job = args[1]
         for i = 1, #announces, 1 do
@@ -57,7 +60,7 @@ RegisterCommand("deleteannounce", function(source, args)
             end
         end
         if not announce then
-            xPlayer.showNotification('No hay anuncios creados para ' ..job)
+            xPlayer.showNotification('No hay anuncios creados para ~r~' ..job)
         end
     end
 end)
@@ -78,8 +81,8 @@ ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb)
 end)
 
 RegisterServerEvent("guille_anu:server:sendAnu")
-AddEventHandler("guille_anu:server:sendAnu", function(pic, color, name, content)
-    TriggerClientEvent("guille_an:server:syncAnounce", -1, pic, color, name, content)
+AddEventHandler("guille_anu:server:sendAnu", function(pic, color, name, content, colorbar, titlecolor)
+    TriggerClientEvent("guille_an:server:syncAnounce", -1, pic, color, name, content, colorbar, titlecolor)
 end)
 
 MySQL.ready(function()
