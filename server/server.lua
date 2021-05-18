@@ -39,7 +39,28 @@ AddEventHandler("guille_anu:server:create", function(job, pic, color, name)
     xPlayer.showNotification('Anuncio para el job ~b~' ..job.. '~w~ creado correctamente')
 end)
 
-
+RegisterCommand("deleteannounce", function(source, args)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
+        local job = args[1]
+        for i = 1, #announces, 1 do
+            if announces[i]['job'] == job then
+                announce = true
+                MySQL.Async.execute('DELETE FROM announces WHERE job=@job ', {
+                    ['@job'] = job,
+                })
+                xPlayer.showNotification('El anuncio del job ~b~' ..job..'~w~ se esta borrando...')
+                Wait(5000)
+                xPlayer.showNotification('El anuncio del job ~b~' ..job..'~w~ ha sido borrado')
+                refresh()
+                break
+            end
+        end
+        if not announce then
+            xPlayer.showNotification('No hay anuncios creados para ' ..job)
+        end
+    end
+end)
 
 ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb) 
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -52,7 +73,7 @@ ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb)
         end
     end
     if not announce then
-        xPlayer.showNotification('No hay jobs creados para tu job ' ..xPlayer.job.name)
+        xPlayer.showNotification('No hay anuncios creados para tu job ' ..xPlayer.job.name)
     end
 end)
 
