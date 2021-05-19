@@ -75,7 +75,7 @@ function createAnnounce()
 
     ESX.UI.Menu.Open('default',GetCurrentResourceName(), "creator_menu",
     { 
-    title = "Menu de creación de anuncio", 
+    title = "Ad creation menu", 
     align = "bottom-right", 
     elements = elements 
     }, function(data, menu)
