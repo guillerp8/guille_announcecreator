@@ -22,6 +22,8 @@ server_scripts {
     "server/server.lua",
 }
 
+shared_script 'config.lua'
+
 files {
     "ui/index.html",
     "ui/script.js",

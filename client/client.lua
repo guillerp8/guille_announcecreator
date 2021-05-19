@@ -7,12 +7,12 @@ Citizen.CreateThread(function()
     end 
 end)
 
-RegisterCommand("createannounce", function(source, args)
+RegisterCommand(Config['createcommand'], function(source, args)
     ESX.TriggerServerCallback('guille_an:server:checkAdmin', function(result)
         if result then
-            createAnnounce()   
+            createAnnounce()
         else
-            ESX.ShowNotification('No eres administrador')
+            ESX.ShowNotification('No ~r~perms')
         end
     end)
 end, false)
@@ -27,39 +27,39 @@ function createAnnounce()
     local elements = {}
 
     if job == nil then
-        table.insert(elements, {label = "Job", value = "job"})
+        table.insert(elements, {label = "Job:", value = "job"})
     else
         table.insert(elements, {label = "Job: " ..job, value = "job"})
     end
 
     if foto == nil then
-        table.insert(elements, {label = "Foto", value = "pic"})
+        table.insert(elements, {label = "Picture:", value = "pic"})
     else
-        table.insert(elements, {label = "Foto: " ..foto, value = "pic"})
+        table.insert(elements, {label = "Picture: " ..foto, value = "pic"})
     end
 
     if color == nil then
-        table.insert(elements, {label = "Color", value = "color"})
+        table.insert(elements, {label = "Color (rgb example: 1, 2, 3):", value = "color"})
     else
         table.insert(elements, {label = "Color: " ..color, value = "color"})
     end
 
     if name == nil then
-        table.insert(elements, {label = "Nombre", value = "name"})
+        table.insert(elements, {label = "Name", value = "name"})
     else
-        table.insert(elements, {label = "Nombre: " ..name, value = "name"})
+        table.insert(elements, {label = "Name: " ..name, value = "name"})
     end
 
     if colorbar == nil then
-        table.insert(elements, {label = "Color de la barra: ", value = "colorbar"})
+        table.insert(elements, {label = "Bar color (rgb example: 1, 2, 3):", value = "colorbar"})
     else
-        table.insert(elements, {label = "Color de la barra: " ..colorbar, value = "colorbar"}) 
+        table.insert(elements, {label = "Bar color: " ..colorbar, value = "colorbar"}) 
     end
 
     if titlecolor == nil then
-        table.insert(elements, {label = "Color del texto del título: ", value = "titlecolor"})
+        table.insert(elements, {label = "Title text color (rgb example: 1, 2, 3): ", value = "titlecolor"})
     else
-        table.insert(elements, {label = "Color del texto del título: " ..titlecolor, value = "titlecolor"}) 
+        table.insert(elements, {label = "Title text color: " ..titlecolor, value = "titlecolor"}) 
     end
 
     if job ~= nil and foto ~= nil and color ~= nil and name ~= nil and colorbar ~= nil and titlecolor ~= nil then
@@ -85,7 +85,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Nombre del job", 
+            title = "Job name", 
             align = "center", 
             },
             function(data2, menu2)
@@ -99,7 +99,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Pic del job", 
+            title = "Job picture", 
             align = "center", 
             },
             function(data2, menu2)
@@ -116,7 +116,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Color del job", 
+            title = "Job color", 
             align = "center", 
             },
             function(data2, menu2)
@@ -130,7 +130,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Color del texto del título", 
+            title = "Title color", 
             align = "center", 
             },
             function(data2, menu2)
@@ -144,7 +144,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Color de la franja del anuncio", 
+            title = "Ad fringe color", 
             align = "center", 
             },
             function(data2, menu2)
@@ -158,7 +158,7 @@ function createAnnounce()
             ESX.UI.Menu.CloseAll()
             ESX.UI.Menu.Open('dialog',GetCurrentResourceName(),"menu_create",
             { 
-            title = "Nombre del trabajo", 
+            title = "Label showed", 
             align = "center", 
             },
             function(data2, menu2)
@@ -183,7 +183,7 @@ function createAnnounce()
     end)
 end
 
-RegisterCommand("anuncio", function(source, args)
+RegisterCommand(Config['adcommand'], function(source, args)
     local content = table.concat(args, ' ')
     ESX.TriggerServerCallback('guille_anu:getAnounce', function(result) 
         if result ~= nil then

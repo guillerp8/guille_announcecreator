@@ -35,10 +35,10 @@ AddEventHandler("guille_anu:server:create", function(job, pic, color, name, colo
             ['@titlecolor'] = titlecolor,
         })
     end
-    xPlayer.showNotification('Creando el ~r~anuncio~w~, espera a que este creado')
+    xPlayer.showNotification('Creating the ~r~ad~w~, wait for it to be created')
     Wait(5000)
     refresh()
-    xPlayer.showNotification('Anuncio para el job ~b~' ..job.. '~w~ creado correctamente')
+    xPlayer.showNotification('Job ad ~b~'..job ..'~w~ created correctly')
 end)
 
 RegisterCommand("deleteannounce", function(source, args)
@@ -52,15 +52,15 @@ RegisterCommand("deleteannounce", function(source, args)
                 MySQL.Async.execute('DELETE FROM announces WHERE job=@job ', {
                     ['@job'] = job,
                 })
-                xPlayer.showNotification('El anuncio del job ~b~' ..job..'~w~ se esta borrando...')
+                xPlayer.showNotification('The ad for the job ~b~' ..job..'~w~ is being deleted...')
                 Wait(5000)
-                xPlayer.showNotification('El anuncio del job ~b~' ..job..'~w~ ha sido borrado')
+                xPlayer.showNotification('The ad for the job ~b~' ..job..'~w~ has been deleted')
                 refresh()
                 break
             end
         end
         if not announce then
-            xPlayer.showNotification('No hay anuncios creados para ~r~' ..job)
+            xPlayer.showNotification('No ads created for the job ~r~' ..job)
         end
     end
 end)
@@ -76,7 +76,7 @@ ESX.RegisterServerCallback('guille_anu:getAnounce', function(source,cb)
         end
     end
     if not announce then
-        xPlayer.showNotification('No hay anuncios creados para tu job ' ..xPlayer.job.name)
+        xPlayer.showNotification('There are no ads created for your job ' ..xPlayer.job.name)
     end
 end)
 
@@ -88,4 +88,43 @@ end)
 MySQL.ready(function()
     print("^4[guille_announcecreator]^0 Refreshing announces")
     refresh()
+    SetConvarServerInfo("guille_announcecreator", "Developed by guillerp")
+    if GetCurrentResourceName() == resourceName then
+		function checkVersion(error, latestVersion, headers)
+			local currentVersion = Config['scriptversion']           
+			if tonumber(currentVersion) < tonumber(latestVersion) then
+				print(name .. " ^1is outdated.\nCurrent version: ^8" .. currentVersion .. "\nNewest version: ^2" .. latestVersion .. "\n^3Update^7: https://github.com/guillerp8/guille_announcecreator")
+			elseif tonumber(currentVersion) > tonumber(latestVersion) then
+				print(name .. " has skipped the latest version ^2" .. latestVersion .. ". Either Github is offline or the version file has been changed")
+			else
+				print(name .. " is updated.")
+			end
+		end
+	
+		PerformHttpRequest("https://raw.githubusercontent.com/guillerp8/jobcreatorversion/ma/announceversion", checkVersion, "GET")
+	end
 end)
+
+-- https://github.com/Project-Entity/pe-hud/blob/main/server/version_sv.lua
+
+
+local name = "^4[guille_announcecreator]^7"
+
+AddEventHandler('onResourceStart', function(resourceName)
+	if GetCurrentResourceName() == resourceName then
+		function checkVersion(error, latestVersion, headers)
+			local currentVersion = Config['scriptversion']           
+			if tonumber(currentVersion) < tonumber(latestVersion) then
+				print(name .. " ^1is outdated.\nCurrent version: ^8" .. currentVersion .. "\nNewest version: ^2" .. latestVersion .. "\n^3Update^7: https://github.com/guillerp8/guille_announcecreator")
+			elseif tonumber(currentVersion) > tonumber(latestVersion) then
+				print(name .. " has skipped the latest version ^2" .. latestVersion .. ". Either Github is offline or the version file has been changed")
+			else
+				print(name .. " is updated.")
+			end
+		end
+	
+		PerformHttpRequest("https://raw.githubusercontent.com/guillerp8/jobcreatorversion/ma/announceversion", checkVersion, "GET")
+	end
+end)
+
+-- https://github.com/Project-Entity/pe-hud/blob/main/server/version_sv.lua
