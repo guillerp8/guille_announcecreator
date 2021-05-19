@@ -41,7 +41,7 @@ AddEventHandler("guille_anu:server:create", function(job, pic, color, name, colo
     xPlayer.showNotification('Job ad ~b~'..job ..'~w~ created correctly')
 end)
 
-RegisterCommand("deleteannounce", function(source, args)
+RegisterCommand(Config['deletecommand'], function(source, args)
     local xPlayer = ESX.GetPlayerFromId(source)
     local announce = false
     if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
