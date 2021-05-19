@@ -70,7 +70,7 @@ function createAnnounce()
             demotitlecolor = titlecolor;
             demoname = name;
         })
-        table.insert(elements, {label = "Crear", value = "create"})
+        table.insert(elements, {label = "Create", value = "create"})
     end
 
     ESX.UI.Menu.Open('default',GetCurrentResourceName(), "creator_menu",

@@ -21,7 +21,7 @@ $(function(){
                 <div class="drawline" style="background: rgb(${event.data.democolorbar});">
                     <span class="title" style="color: rgb(${event.data.demotitlecolor});" id="title">${event.data.demoname}</span>
                 </div>
-                <span class="text-content" id="content">¡Esto es un test de creación de anuncio!</span>
+                <span class="text-content" id="content">¡Announce creation test!</span>
                 <img class="picture" src="${event.data.demopic}"></img>
             </div>`
             const insertAfter = (element, htmlString) => element.insertAdjacentHTML("afterend", htmlString)
