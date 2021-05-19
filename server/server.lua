@@ -4,7 +4,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 ESX.RegisterServerCallback('guille_an:server:checkAdmin', function(source,cb) 
     local xPlayer = ESX.GetPlayerFromId(source)
-    if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
+    if isAdmin(xPlayer) then
         cb(true)
     else
         cb(false)
@@ -25,7 +25,7 @@ end
 RegisterServerEvent("guille_anu:server:create")
 AddEventHandler("guille_anu:server:create", function(job, pic, color, name, colorbar, titlecolor)
     local xPlayer = ESX.GetPlayerFromId(source)
-    if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
+    if isAdmin(xPlayer) then
         MySQL.Async.execute('INSERT INTO announces (job, pic, color, name, colorbar, titlecolor) VALUES (@job, @pic, @color, @name, @colorbar, @titlecolor)', {
             ['@job'] = job,
             ['@pic'] = pic, 
@@ -44,7 +44,7 @@ end)
 RegisterCommand(Config['deletecommand'], function(source, args)
     local xPlayer = ESX.GetPlayerFromId(source)
     local announce = false
-    if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
+    if isAdmin(xPlayer) then
         local job = args[1]
         for i = 1, #announces, 1 do
             if announces[i]['job'] == job then
@@ -89,42 +89,33 @@ MySQL.ready(function()
     print("^4[guille_announcecreator]^0 Refreshing announces")
     refresh()
     SetConvarServerInfo("guille_announcecreator", "Developed by guillerp")
-    if GetCurrentResourceName() == resourceName then
-		function checkVersion(error, latestVersion, headers)
-			local currentVersion = Config['scriptversion']           
-			if tonumber(currentVersion) < tonumber(latestVersion) then
-				print(name .. " ^1is outdated.\nCurrent version: ^8" .. currentVersion .. "\nNewest version: ^2" .. latestVersion .. "\n^3Update^7: https://github.com/guillerp8/guille_announcecreator")
-			elseif tonumber(currentVersion) > tonumber(latestVersion) then
-				print(name .. " has skipped the latest version ^2" .. latestVersion .. ". Either Github is offline or the version file has been changed")
-			else
-				print(name .. " is updated.")
-			end
-		end
-	
-		PerformHttpRequest("https://raw.githubusercontent.com/guillerp8/jobcreatorversion/ma/announceversion", checkVersion, "GET")
-	end
 end)
-
--- https://github.com/Project-Entity/pe-hud/blob/main/server/version_sv.lua
-
-
-local name = "^4[guille_announcecreator]^7"
 
 AddEventHandler('onResourceStart', function(resourceName)
 	if GetCurrentResourceName() == resourceName then
-		function checkVersion(error, latestVersion, headers)
-			local currentVersion = Config['scriptversion']           
-			if tonumber(currentVersion) < tonumber(latestVersion) then
-				print(name .. " ^1is outdated.\nCurrent version: ^8" .. currentVersion .. "\nNewest version: ^2" .. latestVersion .. "\n^3Update^7: https://github.com/guillerp8/guille_announcecreator")
-			elseif tonumber(currentVersion) > tonumber(latestVersion) then
-				print(name .. " has skipped the latest version ^2" .. latestVersion .. ". Either Github is offline or the version file has been changed")
-			else
-				print(name .. " is updated.")
-			end
-		end
-	
 		PerformHttpRequest("https://raw.githubusercontent.com/guillerp8/jobcreatorversion/ma/announceversion", checkVersion, "GET")
 	end
 end)
 
 -- https://github.com/Project-Entity/pe-hud/blob/main/server/version_sv.lua
+
+isAdmin = function(xPlayer)
+    if xPlayer.getGroup() == "admin" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "superadmin" then
+        return true
+    else
+        return false
+    end
+end
+
+local name = "^4[guille_announcecreator]^7"
+
+checkVersion = function(error, latestVersion, headers)
+    local currentVersion = Config['scriptversion']
+    if tonumber(currentVersion) < tonumber(latestVersion) then
+        print(name .. " ^1is outdated.\nCurrent version: ^8" .. currentVersion .. "\nNewest version: ^2" .. latestVersion .. "\n^3Update^7: https://github.com/guillerp8/guille_announcecreator")
+    elseif tonumber(currentVersion) > tonumber(latestVersion) then
+        print(name .. " has skipped the latest version ^2" .. latestVersion .. ". Either Github is offline or the version file has been changed")
+    else
+        print(name .. " is updated.")
+    end
+end
