@@ -8,10 +8,6 @@
     src: url("srcs/drunk.TTF");
 }
 
-#all {
-    
-}
-
 body {
     overflow:hidden;
     width: 100%;
@@ -103,7 +99,6 @@ body {
     height: auto;
     margin:auto;
     animation: appear 4s forwards
-    
 }
 
 @keyframes appear {

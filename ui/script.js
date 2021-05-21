@@ -5,7 +5,6 @@ $(function(){
     window.addEventListener("message", function(event){
         
         if (notifs && !event.data.democolor && !event.data.demotitlecolor && !event.data.restartdemo && !event.data.demoname && !event.data.democolorbar && !event.data.demotitlecolor) {
-            
             queue.push(event.data);
         }
         else if (!event.data.democolor && !event.data.demotitlecolor && !event.data.restartdemo && !event.data.demoname && !event.data.democolorbar && !event.data.demopic && !event.data.demotitlecolor && !notifs)
